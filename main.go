@@ -3,5 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello World")
+	Catalogo := criaCatalogo()
+	fmt.Println("Esse é o catálogo da Loja Viaja Conosco", Catalogo)
 }
