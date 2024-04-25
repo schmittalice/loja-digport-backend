@@ -37,3 +37,16 @@ func criaCatalogo() []model.Produto {
 	}
 	return Produtos
 }
+
+func produtosPorNome(nome string) []model.Produto {
+	catalogo := []model.Produto{}
+	Produtos := criaCatalogo()
+
+	for i := range Produtos {
+		produtoBuscado := Produtos[i]
+		if produtoBuscado.Nome == nome {
+			catalogo = append(catalogo, produtoBuscado)
+		}
+	}
+	return catalogo
+}
