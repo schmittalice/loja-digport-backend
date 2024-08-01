@@ -18,10 +18,7 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
-
-	"github.com/schmittalice/loja-digport-backend/model"
 )
 
 func StartServer() {
@@ -38,22 +35,22 @@ func produtosHandlerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addProduto(w http.ResponseWriter, r *http.Request) {
-	var produto model.Produto
-	json.NewDecoder(r.Body).Decode(&produto)
+// func addProduto(w http.ResponseWriter, r *http.Request) {
+// 	var produto model.Produto
+// 	json.NewDecoder(r.Body).Decode(&produto)
 
-	registerProduto(produto)
+// 	registerProduto(produto)
 
-	w.WriteHeader(http.StatusCreated)
-}
+// 	w.WriteHeader(http.StatusCreated)
+// }
 
-func getProduto(w http.ResponseWriter, r *http.Request) {
-	queryNome := r.URL.Query().Get("nome")
-	if queryNome != "" {
-		buscaPorNome := buscaPorNome(queryNome)
-		json.NewEncoder(w).Encode(buscaPorNome)
-	} else {
-		produto := Produtos
-		json.NewEncoder(w).Encode(produto)
-	}
-}
+// func getProduto(w http.ResponseWriter, r *http.Request) {
+// 	queryNome := r.URL.Query().Get("nome")
+// 	if queryNome != "" {
+// 		buscaPorNome := buscaPorNome(queryNome)
+// 		json.NewEncoder(w).Encode(buscaPorNome)
+// 	} else {
+// 		produto := Produtos
+// 		json.NewEncoder(w).Encode(produto)
+// 	}
+// }
