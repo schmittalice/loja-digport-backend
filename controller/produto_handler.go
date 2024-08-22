@@ -3,7 +3,6 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
-	"fmt"
 
 	"github.com/schmittalice/loja-digport-backend/model"
 )
@@ -22,16 +21,15 @@ func BuscaProdutoPorNomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CriaProdutoHandler(w http.ResponseWriter, r *http.Request) {
-var produto model.Produto
-json.NewDecoder(r.Body).Decode(&produto)
+	var produto model.Produto
+	json.NewDecoder(r.Body).Decode(&produto)
 
-error := model.CriaProduto(produto)
-if error != nil {
-	w.WriterHeader(http.StatusBadRequest)
-}else {
-	w.WriteHeader(http.StatusCreated)
+	error := model.CriaProduto(produto)
+	if error != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	} else {
+		w.WriteHeader(http.StatusCreated)
+	}
 }
 
-func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request){
-	
-}
+//func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request){

@@ -6,6 +6,16 @@ meta {
 
 post {
   url: http://localhost:8080/produto
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+      "nome": "Spring boot",
+      "preco": 19.9,
+      "descricao": "Spring boot",
+      "imagem": "livro.jpg",
+      "quantidadeEmEstoque": 4
+  }
 }
