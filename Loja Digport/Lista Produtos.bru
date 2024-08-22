@@ -1,0 +1,15 @@
+meta {
+  name: Lista Produtos
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/produto?nome=Revista moda
+  body: none
+  auth: none
+}
+
+query {
+  nome: Revista moda
+}

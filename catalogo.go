@@ -9,7 +9,7 @@ func criaCatalogo() []model.Produto {
 		{
 			ID:                  "1",
 			Nome:                "Pacote Espanha",
-			Valor:               22.000,
+			Preco:               22.000,
 			Descricao:           "Pacote de viagem para Espanha em 2025",
 			Imagem:              "Barcelona.jpg",
 			QuantidadeDeDias:    15,
@@ -19,7 +19,7 @@ func criaCatalogo() []model.Produto {
 
 			ID:                  "2",
 			Nome:                "Pacote Grecia",
-			Valor:               20.000,
+			Preco:               20.000,
 			Descricao:           "Pacote de viagem para Grecia em 2025",
 			Imagem:              "Atenas.jpg",
 			QuantidadeDeDias:    15,
@@ -28,7 +28,7 @@ func criaCatalogo() []model.Produto {
 		{
 			ID:                  "3",
 			Nome:                "Pacote Hungria",
-			Valor:               18.000,
+			Preco:               18.000,
 			Descricao:           "Pacote de viagem para Hungria em 2025",
 			Imagem:              "Budapeste.jpg",
 			QuantidadeDeDias:    15,

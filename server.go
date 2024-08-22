@@ -18,22 +18,24 @@
 package main
 
 import (
-	"net/http"
+	"github.com/schmittalice/loja-digport-backend/routes"
 )
 
 func StartServer() {
-	http.HandleFunc("/produto", produtosHandlerHandler)
+	//http.HandleFunc("/produto", produtosHandlerHandler)
 
-	http.ListenAndServe(":8080", nil)
+	//http.ListenAndServe(":8080", nil)
+
+	routes.HandleRequests()
 }
 
-func produtosHandlerHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		getProduto(w, r)
-	} else if r.Method == "POST" {
-		addProduto(w, r)
-	}
-}
+// func produtosHandlerHandler(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method == "GET" {
+// 		getProduto(w, r)
+// 	} else if r.Method == "POST" {
+// 		addProduto(w, r)
+// 	}
+// }
 
 // func addProduto(w http.ResponseWriter, r *http.Request) {
 // 	var produto model.Produto

@@ -1,15 +1,21 @@
 package routes
 
-import
-"net/http"
+import (
+	"net/http"
 
-"Github.com/gorilla/mux"
-"https://github.com/schmittalice/loja-digiport-backend"
+	"github.com/gorilla/mux"
+	"github.com/schmittalice/loja-digport-backend/controller"
+)
 
-func HandleRequests() route := mux.NewRouter()
+func HandleRequests() {
 
-route.handleFunc("/produtos, controller.BuscaProdutosHandler).Methods("GET")
-route.handleFunc("/produtos, controller.BuscaProdutoPorNomeHandler).Methods("GET")
-route.handleFunc("/produtos, controller.CriaProdutosHandler).Methods("GET")
+	route := mux.NewRouter()
 
-http.ListenAndServe(":8080", route)
+	route.HandleFunc("/produtos", controller.BuscaProdutosHandler).Methods("GET")
+	route.HandleFunc("/produto", controller.BuscaProdutoPorNomeHandler).Methods("GET")
+	route.HandleFunc("/produto", controller.CriaProdutoHandler).Methods("POST")
+	//route.HandleFunc("produto", controller.RemoveProdutosHandler, r *http.Request) ("DELETE")
+	//route.HandleFunc("/produto", controllers.AtualizaProdutoHandler).methods("PUT")
+
+	http.ListenAndServe(":8080", route)
+}

@@ -1,14 +1,12 @@
 package main
 
-import "fmt"
-
 func main() {
 
-	//StartServer()
+	StartServer()
 
-	produtosFiltrados := produtosPorNome("Pacote Hungria")
+	//produtosFiltrados := produtosPorNome("Pacote Hungria")
 
-	fmt.Println(produtosFiltrados)
+	//fmt.Println(produtosFiltrados)
 }
 
 // Catalogo := criaCatalogo()
