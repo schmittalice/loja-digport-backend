@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/schmittalice/loja-digport-backend/model"
 )
 
@@ -30,6 +31,20 @@ func CriaProdutoHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusCreated)
 	}
+}
+
+func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	err := model.RemoveProduto(id)
+	if err != nil {
+		userError := model.Erro{Mensagem: "Ocorreu um erro ao tentar excluir o produto"}
+		json.NewEncoder(w).Encode(userError)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }
 
 //func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request){

@@ -10,15 +10,15 @@ import (
 )
 
 type Produto struct {
-	Nome                string
-	Descricao           string
-	Categoria           string
-	ID                  string
-	Preco               float64
-	Quantidade          int
-	Imagem              string
-	QuantidadeDeDias    int
-	QuantidadeEmEstoque int
+	Nome                string  `json:"nome"`
+	Descricao           string  `json:"descricao"`
+	Categoria           string  `json:"categoria"`
+	ID                  string  `json:"id"`
+	Preco               float64 `json:"preco"`
+	Quantidade          int     `json:"quantidade"`
+	Imagem              string  `json:"imagem"`
+	QuantidadeDeDias    int     `json:"quantidadeDeDias"`
+	QuantidadeEmEstoque int     `json:"quantidadeEmEstoque"`
 }
 
 var id, nome string
@@ -72,7 +72,7 @@ func BuscaProdutoPorNome(nomeProduto string) Produto {
 
 	var p Produto
 	p.ID = id
-	p.Nome = nomeProduto
+	p.Nome = nome
 	p.Descricao = descricao
 	p.Preco = preco
 	p.Imagem = imagem
@@ -90,7 +90,7 @@ func produtoCadastrado(nomeProduto string) bool {
 }
 
 func CriaProduto(prod Produto) error {
-
+	fmt.Println("Nome do produto que quero cadastrar: ", prod.Nome)
 	if produtoCadastrado(prod.Nome) {
 		fmt.Printf("Produto já cadastrado: %s\n", prod.Nome)
 		return fmt.Errorf("Produto já cacastrado")
@@ -119,5 +119,25 @@ func CriaProduto(prod Produto) error {
 
 	defer db.Close()
 
+	return nil
+}
+
+func RemoveProduto(id string) error {
+	db := db.ConectaBancoDados()
+
+	resultado, err := db.Exec("DELETE FROM PRODUTOS WHERE id = $1", id)
+	if err != nil {
+		fmt.Printf("Ocorreu um erro ao tentar excluir produto: %s", err.Error())
+		return fmt.Errorf("Ocorreu um erro ao tentar excluir o produto: %w", err)
+	}
+
+	linesAffected, err := resultado.RowsAffected()
+	if err != nil {
+		return err
+	}
+	fmt.Println("%d linhas afetadas\n", linesAffected)
+	fmt.Println("Produto excluído")
+
+	defer db.Close()
 	return nil
 }
