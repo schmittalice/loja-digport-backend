@@ -12,11 +12,16 @@ func HandleRequests() {
 
 	route := mux.NewRouter()
 
-	route.HandleFunc("/produto", controller.BuscaProdutosHandler).Methods("GET")
+	route.HandleFunc("/produtos", controller.BuscaProdutosHandler).Methods("GET")
 	route.HandleFunc("/produto", controller.BuscaProdutoPorNomeHandler).Methods("GET")
 	route.HandleFunc("/produto", controller.CriaProdutoHandler).Methods("POST")
 	route.HandleFunc("/produto/{id}", controller.RemoveProdutoHandler).Methods("DELETE")
-	//route.HandleFunc("/produto", controllers.AtualizaProdutoHandler).methods("PUT")
+	//route.HandleFunc("/produto", controller.AtualizaProdutoHandler).methods("PUT")
+
+	//Usuario
+
+	route.HandleFunc("/usuarios", controller.CriaUsuarioHandler).Methods("POST")
+	route.HandleFunc("/usuarios", controller.BuscaUsuarioPorEmail).Methods("GET")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

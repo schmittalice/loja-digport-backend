@@ -1,0 +1,21 @@
+meta {
+  name: Add usuario
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/usuarios
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "nome": "Alice Schmitt",
+      "senha": "digport",
+      "email": "test@gmail.com",
+      "telefone": "999999999",
+      "endereco": "Rua das flores, 520"
+  }
+}
