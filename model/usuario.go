@@ -70,3 +70,30 @@ func BuscaUsuarioPorEmail(email string) (*Usuario, error) {
 
 	return &usuario, nil
 }
+
+func UpdateUsuario(usuario Usuario) error {
+	db := db.ConectaBancoDados()
+	defer db.Close()
+
+	nome := usuario.Nome
+	id := usuario.ID
+	Email := usuario.Email
+	Senha := usuario.Senha
+
+	result, err := db.Exec("UPDATE usuarios SET nome= $1, id= $2 where Email= $3 Senha= $4", nome, id, Email, Senha)
+	if err != nil {
+		panic(err.Error())
+	}
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("usuario não encontrado")
+	}
+
+	fmt.Printf("usuario %s atualizado com sucesso (%d row affected)\n", id, rowsAffected)
+
+	return nil
+}

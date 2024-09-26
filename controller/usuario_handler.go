@@ -33,6 +33,19 @@ func BuscaUsuarioPorEmail(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(usuario)
 }
 
+func UpdateUsuario(w http.ResponseWriter, r *http.Request) {
+
+	id := r.URL.Query().Put(`id`)
+
+	usuario, err := model.Usuario(id)
+	if err != nil {
+		fmt.Println("Erro ao editar usuario:", err)
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	json.NewEncoder(w).Encode(usuario)
+}
+
 //func LoginHandler(w http.ResponseWriter, r *http.Request) {
 //verifica credenciais de usuario
 //var usuario model.Usuario }
