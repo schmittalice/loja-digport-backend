@@ -45,15 +45,21 @@ func CriaUsuario(usuario Usuario) error {
 	return nil
 }
 
+func ValidaLogin(hash string, senhatxt string) error {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(senhatxt))
+	if err != nil {
+		return fmt.Errorf("erro ao criar usuário: %w", err)
+	}
+	return nil
+}
+
 func hashPassword(senha string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(senha), 14)
 	if err != nil {
-		return "", fmt.Errorf("erro ao tenatr gerar hash da senha: %w", err)
+		return "", fmt.Errorf("erro ao tentar gerar hash da senha: %w", err)
 	}
 	return string(bytes), nil
 }
-
-//func ValidaLogin(hash string, password string) error {}
 
 func BuscaUsuarioPorEmail(email string) (*Usuario, error) {
 	db := db.ConectaBancoDados()
@@ -71,16 +77,14 @@ func BuscaUsuarioPorEmail(email string) (*Usuario, error) {
 	return &usuario, nil
 }
 
-func UpdateUsuario(usuario Usuario) error {
+func UpdateUsuario(usuario Usuario) (*Usuario, error) {
 	db := db.ConectaBancoDados()
 	defer db.Close()
 
-	nome := usuario.Nome
-	id := usuario.ID
 	Email := usuario.Email
 	Senha := usuario.Senha
 
-	result, err := db.Exec("UPDATE usuarios SET nome= $1, id= $2 where Email= $3 Senha= $4", nome, id, Email, Senha)
+	result, err := db.Exec("UPDATE usuarios SET Senha= $1 where Email= $2", Senha, Email)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -90,10 +94,13 @@ func UpdateUsuario(usuario Usuario) error {
 	}
 
 	if rowsAffected == 0 {
-		return fmt.Errorf("usuario não encontrado")
+		return nil, fmt.Errorf("Email não encontrado %v", Email)
 	}
-
+	User, err := BuscaUsuarioPorEmail(Email)
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("Usuário não encontrado %s", Email)
+	}
 	fmt.Printf("usuario %s atualizado com sucesso (%d row affected)\n", id, rowsAffected)
 
-	return nil
+	return User, nil
 }

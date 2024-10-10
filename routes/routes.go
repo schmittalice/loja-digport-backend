@@ -13,16 +13,17 @@ func HandleRequests() {
 	route := mux.NewRouter()
 
 	route.HandleFunc("/produtos", controller.BuscaProdutosHandler).Methods("GET")
-	route.HandleFunc("/produto", controller.BuscaProdutoPorNomeHandler).Methods("GET")
+	//route.HandleFunc("/produto", controller.BuscaProdutoPorNomeHandler).Methods("GET")
 	route.HandleFunc("/produto", controller.CriaProdutoHandler).Methods("POST")
 	route.HandleFunc("/produto/{id}", controller.RemoveProdutoHandler).Methods("DELETE")
 	//route.HandleFunc("/produto", controller.AtualizaProdutoHandler).methods("PUT")
+	route.Handle("/produto", controller.AuthMiddleware(http.HandlerFunc(controller.BuscaProdutoPorNomeHandler))).Methods("GET")
 
 	//Usuario
-
 	route.HandleFunc("/usuarios", controller.CriaUsuarioHandler).Methods("POST")
 	route.HandleFunc("/usuarios", controller.BuscaUsuarioPorEmail).Methods("GET")
 	route.HandleFunc("/usuarios", controller.UpdateUsuario).Methods("PUT")
+	route.HandleFunc("usuarios/login", controller.LoginHandler).Methods("POST")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

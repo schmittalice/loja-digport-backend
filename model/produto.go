@@ -26,6 +26,11 @@ var preco float64
 var descricao, imagem string
 var quantidade int
 
+func AumentaPreco(produto *Produto) {
+	fmt.Printf("func AumentaPreco: Endereço de memória produto: %p\n", &produto)
+	produto.Preco = produto.Preco + 3
+}
+
 func BuscaTodosProdutos() []Produto {
 	db := db.ConectaBancoDados()
 

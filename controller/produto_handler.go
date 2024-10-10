@@ -47,4 +47,4 @@ func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-//func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request){
+//func RemoveProdutoHandler(w http.ResponseWriter, r *http.Request)
